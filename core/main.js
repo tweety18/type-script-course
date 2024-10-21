@@ -1,91 +1,32 @@
-// Task 1
-// Створи функцію-конструктор BankAccount,
-// яка використовує замикання для створення приватних змінних
-// (наприклад, баланс рахунку). Функція повинна мати методи deposit, withdraw, і getBalance,
-// які дозволяють взаємодіяти з цими змінними, не надаючи прямий доступ до них.
-// Переконайся, що зміна балансу можлива лише через методи deposit та withdraw.
-function BankAccount() {
-    let balance = 0;
-    this.deposit = function (value) {
-        balance += value;
-        return balance;
-    };
-    this.withdraw = function (value) {
-        if (value > balance) {
-            throw new Error('Insufficient funds');
+"use strict";
+// ДЗ 1. Get Avarage Value
+// Напишіть функцію, яка приймає масив чисел і повертає їх середнє значення.
+function calcAverage(arrNum) {
+    if (arrNum.length) {
+        let sum = 0;
+        for (let i = 0; i < arrNum.length; i++) {
+            sum += arrNum[i];
         }
-        balance -= value;
-        return balance;
-    };
-    this.getBalance = function () {
-        return balance;
-    };
+        return Math.floor(sum / arrNum.length);
+    }
+    console.log('Empty array');
+    return 0;
 }
-const account1 = new BankAccount();
-console.log(account1.deposit(100));
-console.log(account1.withdraw(50));
-console.log(account1.getBalance());
-console.log(account1.withdraw(100));
-console.log(account1.getBalance());
-// // Task 2
-// // Створи клас EventManager, який використовує методи для обробки різних подій
-// // (наприклад, on, off, trigger). Забезпеч, щоб кожен метод зберігав правильний контекст
-// // виконання при використанні this у колбеках.
-// //
-// class EventManager {
-//     event: () => void;
-//     isTriggered: boolean = false;
-//
-//     constructor(event: () => void) {
-//         this.event = event;
-//     }
-//
-//     on(): void {
-//         this.isTriggered = true;
-//     }
-//
-//     off(): void {
-//         this.isTriggered = false;
-//     }
-//
-//     trigger = (): void => {
-//         if (this.isTriggered) {
-//             this.event();
-//         } else {
-//             console.log('Event is not triggered');
-//         }
-//     };
-//
-// }
-//
-// class Example {
-//     name: string;
-//
-//     constructor(name: string) {
-//         this.name = name;
-//     }
-//
-//     //arrow function saves the context
-//     // sayHello = ():void => {
-//     //     console.log(`Hello, my name is ${this.name}`);
-//     // }
-//
-//     sayHello(): void {
-//         console.log(`Hello, my name is ${this.name}`);
-//     }
-// }
-//
-// const example = new Example('Bob');
-// const runner = new EventManager(example.sayHello);
-// // if sayHello is not an arrow function, we need to bind the context
-// // const runner = new EventManager(example.sayHello.bind(example));
-//
-//
-// runner.trigger();
-//
-// runner.on();
-// runner.trigger();
-//
-// runner.off();
-// runner.trigger();
-//
+function createNumberArray(minNumber, maxNumber, length) {
+    const isCorrectRange = minNumber < maxNumber;
+    if (isCorrectRange && length) {
+        let arr = [];
+        for (let i = 0; i <= length; i++) {
+            arr.push(Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber);
+        }
+        return arr;
+    }
+    return [];
+}
+const array = [4, 90, 77];
+console.log(calcAverage(array));
+const customArr = createNumberArray(1, 10, 10);
+console.log(customArr);
+console.log(calcAverage(customArr));
+const customArr2 = createNumberArray(0, 0, 0);
+console.log(calcAverage(customArr2)); //error, return 0
