@@ -1,3 +1,29 @@
+// ДЗ 2. Get string description
+// Напишіть функцію, що приймає об'єкт з інформацією про товар (назва, ціна, наявність) і повертає рядок типу "Товар: Назва, Ціна: Х грн., В наявності: Так/Ні".
+
+interface Product {
+    name: string;
+    price: number;
+    isAvailable?: boolean;
+}
+
+function getProductDesc(product: Product): string {
+    return `Товар: ${product.name.trim() ? product.name.trim() : 'без назви'}, Ціна: ${product.price ? product.price + ' грн.' : 'безкоштовно'}, В наявності: ${product.isAvailable ? 'Так' : 'Ні'}`;
+}
+
+const testProduct: Product = {
+    name: '     ',
+    price: 100,
+};
+console.log(getProductDesc(testProduct));
+
+const testProduct2: Product = {
+    name: 'Some Name',
+    price: 0,
+    isAvailable: true,
+};
+console.log(getProductDesc(testProduct2));
+
 // ДЗ 1. Get Avarage Value
 // Напишіть функцію, яка приймає масив чисел і повертає їх середнє значення.
 
