@@ -1,99 +1,33 @@
-// Task 1
-// Створи функцію-конструктор BankAccount,
-// яка використовує замикання для створення приватних змінних
-// (наприклад, баланс рахунку). Функція повинна мати методи deposit, withdraw, і getBalance,
-// які дозволяють взаємодіяти з цими змінними, не надаючи прямий доступ до них.
-// Переконайся, що зміна балансу можлива лише через методи deposit та withdraw.
+// ДЗ 8. TS Перевірка рядка на заборонені слова з виділенням
+// Напиши функцію highlightForbiddenWords, яка приймає рядок і масив заборонених слів.
+// Якщо знаходить у рядку заборонене слово, то обгортає його в тег <del>, який буде закреслювати це слово.
+// Функція повинна повертати оновлений рядок, готовий для демонстрації в HTML.
+// Створи також просту HTML-сторінку для відображення результату.
 
-function BankAccount() {
-    let balance: number = 0;
+const container = document.getElementById('container') as HTMLElement;
+const sentence = document.getElementById('sentence') as HTMLInputElement;
+const forbiddenWords = document.getElementById('forbiddenWords') as HTMLInputElement;
+const checkBtn = document.getElementById('check') as HTMLButtonElement;
+const newElement = document.createElement('p');
 
-    this.deposit = function(value: number): number {
-        balance += value;
-        return balance;
-    };
-
-    this.withdraw = function(value: number): number {
-        if (value > balance) {
-            throw new Error('Insufficient funds');
-        }
-        balance -= value;
-        return balance;
-    };
-
-    this.getBalance = function(): number {
-        return balance;
-    };
+function checkInputs() {
+    sentence.value.trim() && forbiddenWords.value.trim()
+        ? checkBtn.disabled = false
+        : checkBtn.disabled = true
 }
 
-const account1 = new BankAccount();
-console.log(account1.deposit(100));
-console.log(account1.withdraw(50));
-console.log(account1.getBalance());
-console.log(account1.withdraw(100)); //error
-console.log(account1.getBalance());
+sentence.addEventListener('input', checkInputs);
+forbiddenWords.addEventListener('input', checkInputs);
 
+function highlightForbiddenWords(text: string, words: string): void {
+    const textArr: string[] = text.toLowerCase().split(/[ ,]+/).filter(Boolean);
+    const forbArr: string[] = words.toLowerCase().split(/[ ,]+/).filter(Boolean);
+    const newArr: string = textArr.map((item: string) => forbArr.includes(item) ? `<del>${item}</del>` : item).join(' ');
+    newElement.innerHTML = newArr;
+    container.appendChild(newElement);
+}
 
-
-// // Task 2
-// // Створи клас EventManager, який використовує методи для обробки різних подій
-// // (наприклад, on, off, trigger). Забезпеч, щоб кожен метод зберігав правильний контекст
-// // виконання при використанні this у колбеках.
-// //
-// class EventManager {
-//     event: () => void;
-//     isTriggered: boolean = false;
-//
-//     constructor(event: () => void) {
-//         this.event = event;
-//     }
-//
-//     on(): void {
-//         this.isTriggered = true;
-//     }
-//
-//     off(): void {
-//         this.isTriggered = false;
-//     }
-//
-//     trigger = (): void => {
-//         if (this.isTriggered) {
-//             this.event();
-//         } else {
-//             console.log('Event is not triggered');
-//         }
-//     };
-//
-// }
-//
-// class Example {
-//     name: string;
-//
-//     constructor(name: string) {
-//         this.name = name;
-//     }
-//
-//     //arrow function saves the context
-//     // sayHello = ():void => {
-//     //     console.log(`Hello, my name is ${this.name}`);
-//     // }
-//
-//     sayHello(): void {
-//         console.log(`Hello, my name is ${this.name}`);
-//     }
-// }
-//
-// const example = new Example('Bob');
-// const runner = new EventManager(example.sayHello);
-// // if sayHello is not an arrow function, we need to bind the context
-// // const runner = new EventManager(example.sayHello.bind(example));
-//
-//
-// runner.trigger();
-//
-// runner.on();
-// runner.trigger();
-//
-// runner.off();
-// runner.trigger();
-//
+checkBtn.addEventListener(
+    'click',
+    () => highlightForbiddenWords(sentence.value, forbiddenWords.value)
+)
