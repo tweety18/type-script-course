@@ -19,15 +19,18 @@ function checkInputs() {
 sentence.addEventListener('input', checkInputs);
 forbiddenWords.addEventListener('input', checkInputs);
 
-function highlightForbiddenWords(text: string, words: string): void {
-    const textArr: string[] = text.toLowerCase().split(/[ ,]+/).filter(Boolean);
-    const forbArr: string[] = words.toLowerCase().split(/[ ,]+/).filter(Boolean);
-    const newArr: string = textArr.map((item: string) => forbArr.includes(item) ? `<del>${item}</del>` : item).join(' ');
+function splitString(text: string): string[] {
+    return text.toLowerCase().split(/[ ,]+/).filter(Boolean);
+}
+
+function highlightForbiddenWords(text: string, words: string[]): void {
+    const textArr: string[] = splitString(text);
+    const newArr: string = textArr.map((item: string) => words.includes(item) ? `<del>${item}</del>` : item).join(' ');
     newElement.innerHTML = newArr;
     container.appendChild(newElement);
 }
 
 checkBtn.addEventListener(
     'click',
-    () => highlightForbiddenWords(sentence.value, forbiddenWords.value)
+    () => highlightForbiddenWords(sentence.value, splitString(forbiddenWords.value))
 )
