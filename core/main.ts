@@ -1,33 +1,76 @@
-// ДЗ 6. TS Створення глибокого дерева об'єктів
-// Створи функцію, яка рекурсивно формує об'єкт у вигляді дерева за переданою глибиною.
-// Повертає: { value: 3, child: { value: 2, child: { value: 1, child: null } } }
-interface AbstracrObject {
-    [key: string]: any;
-}
-function createTree(deepValue: number = 0): AbstracrObject {
-    const obj: AbstracrObject = {value: 0};
-    if (deepValue < 0 || !deepValue) {
-        return obj;
-    }
-    else if (deepValue === 1) {
-        obj.value = deepValue;
-        obj.child = null;
-        return obj;
-    }
-    else {
-        obj.value = deepValue;
-        for (let i: number = deepValue; i > 1; --i ) {
-            obj.child = {
-                value: deepValue-1,
-                child: createTree(i-1)
+// ДЗ 7. TS Написати функцію reverseArray
+// Функція приймає масив як аргумент, а перевертає його Array.prototype.reverse
+// ВАЖЛИВО
+// Функція повинна змінювати вхідний масив, а не створювати новий
+
+function reverseArray(arr: any[]): any[] {
+    if (!arr.length) {
+        return arr;
+    } else {
+        let firstIdx: number = 0;
+        let endIdx: number = arr.length - 1
+        while (firstIdx < endIdx) {
+            {
+                let firstEl: any = arr[firstIdx];
+                arr[firstIdx] = arr[endIdx];
+                arr[endIdx] = firstEl;
+                firstIdx++;
+                endIdx--;
             }
         }
-        return obj;
+        return arr;
     }
 }
 
-console.log(createTree(-1)) //{value: 0}
-console.log(createTree(3))
+//without mutation original arr
+function reverseArrayWithNewArr(arr: any[]): any[] {
+    if (!arr.length) {
+        return arr;
+    } else {
+        return arr
+            .map((value, index) => ({ [index]: value }))
+            .sort((a: any, b: any) => Number(Object.keys(b)[0]) - Number(Object.keys(a)[0]))
+            .map((item) => Object.values(item)[0]);
+    }
+}
+
+const arr1: number [] = [1,2,3];
+const arr2: number[] = reverseArray(arr1);
+console.log(arr1);
+console.log(arr2);
+console.log(arr1 === arr2);
+
+
+// // ДЗ 6. TS Створення глибокого дерева об'єктів
+// // Створи функцію, яка рекурсивно формує об'єкт у вигляді дерева за переданою глибиною.
+// // Повертає: { value: 3, child: { value: 2, child: { value: 1, child: null } } }
+// interface AbstracrObject {
+//     [key: string]: any;
+// }
+// function createTree(deepValue: number = 0): AbstracrObject {
+//     const obj: AbstracrObject = {value: 0};
+//     if (deepValue < 0 || !deepValue) {
+//         return obj;
+//     }
+//     else if (deepValue === 1) {
+//         obj.value = deepValue;
+//         obj.child = null;
+//         return obj;
+//     }
+//     else {
+//         obj.value = deepValue;
+//         for (let i: number = deepValue; i > 1; --i ) {
+//             obj.child = {
+//                 value: deepValue-1,
+//                 child: createTree(i-1)
+//             }
+//         }
+//         return obj;
+//     }
+// }
+//
+// console.log(createTree(-1)) //{value: 0}
+// console.log(createTree(3))
 
 
 // // ДЗ 5. TS: Deep Copy
