@@ -1,91 +1,79 @@
-// Task 1
-// Створи функцію-конструктор BankAccount,
-// яка використовує замикання для створення приватних змінних
-// (наприклад, баланс рахунку). Функція повинна мати методи deposit, withdraw, і getBalance,
-// які дозволяють взаємодіяти з цими змінними, не надаючи прямий доступ до них.
-// Переконайся, що зміна балансу можлива лише через методи deposit та withdraw.
-function BankAccount() {
-    let balance = 0;
-    this.deposit = function (value) {
-        balance += value;
-        return balance;
-    };
-    this.withdraw = function (value) {
-        if (value > balance) {
-            throw new Error('Insufficient funds');
-        }
-        balance -= value;
-        return balance;
-    };
-    this.getBalance = function () {
-        return balance;
-    };
+const newUser = {
+    street: 'SomeStreet',
+    city: "SomeCity",
+    zipCode: '01011',
+    name: 'Alona',
+    age: 32,
+    email: 'test@gmail.com'
+};
+console.log(newUser);
+const newProducts = [
+    {
+        orderId: 1,
+        userId: 11,
+        products: [
+            {
+                name: 'TV',
+                price: 1500,
+                category: {
+                    categoryName: 'home',
+                    categoryId: 222
+                }
+            },
+            {
+                name: 'Kettle',
+                price: 100,
+                category: {
+                    categoryName: 'home',
+                    categoryId: 333
+                }
+            },
+        ]
+    },
+    {
+        orderId: 8,
+        userId: 88,
+        products: [
+            {
+                name: 'dress',
+                price: 20,
+                category: {
+                    categoryName: 'clothes',
+                    categoryId: 99
+                }
+            }
+        ]
+    }
+];
+console.log(newProducts);
+function getPersonData(person) {
+    return `${person.firstName} ${person.middleName ? person.middleName + ' ' + person.lastName : person.lastName}`;
 }
-const account1 = new BankAccount();
-console.log(account1.deposit(100));
-console.log(account1.withdraw(50));
-console.log(account1.getBalance());
-console.log(account1.withdraw(100));
-console.log(account1.getBalance());
-// // Task 2
-// // Створи клас EventManager, який використовує методи для обробки різних подій
-// // (наприклад, on, off, trigger). Забезпеч, щоб кожен метод зберігав правильний контекст
-// // виконання при використанні this у колбеках.
-// //
-// class EventManager {
-//     event: () => void;
-//     isTriggered: boolean = false;
-//
-//     constructor(event: () => void) {
-//         this.event = event;
-//     }
-//
-//     on(): void {
-//         this.isTriggered = true;
-//     }
-//
-//     off(): void {
-//         this.isTriggered = false;
-//     }
-//
-//     trigger = (): void => {
-//         if (this.isTriggered) {
-//             this.event();
-//         } else {
-//             console.log('Event is not triggered');
-//         }
-//     };
-//
-// }
-//
-// class Example {
-//     name: string;
-//
-//     constructor(name: string) {
-//         this.name = name;
-//     }
-//
-//     //arrow function saves the context
-//     // sayHello = ():void => {
-//     //     console.log(`Hello, my name is ${this.name}`);
-//     // }
-//
-//     sayHello(): void {
-//         console.log(`Hello, my name is ${this.name}`);
-//     }
-// }
-//
-// const example = new Example('Bob');
-// const runner = new EventManager(example.sayHello);
-// // if sayHello is not an arrow function, we need to bind the context
-// // const runner = new EventManager(example.sayHello.bind(example));
-//
-//
-// runner.trigger();
-//
-// runner.on();
-// runner.trigger();
-//
-// runner.off();
-// runner.trigger();
-//
+const newPerson1 = {
+    firstName: 'Name',
+    lastName: 'Surname',
+    middleName: 'MiddleName'
+};
+const newPerson2 = {
+    firstName: 'Name',
+    lastName: 'Surname',
+};
+console.log('newPerson1: ', getPersonData(newPerson1));
+console.log('newPerson2: ', getPersonData(newPerson2));
+function applySettings(settings) {
+    if (settings.autoSave.enabled && settings.notifications) {
+        alert(`Enabled autosave every ${settings.autoSave.interval} minutes`);
+    }
+    else if (settings.autoSave.enabled && !settings.notifications) {
+        console.log(`Enabled autosave every ${settings.autoSave.interval} minutes`);
+    }
+}
+const newSettings = {
+    theme: 'light',
+    notifications: true,
+    autoSave: {
+        enabled: true,
+        interval: 10
+    }
+};
+applySettings(newSettings);
