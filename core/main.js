@@ -47,7 +47,9 @@ const newProducts = [
 ];
 console.log(newProducts);
 function getPersonData(person) {
-    return `${person.firstName} ${person.middleName ? person.middleName + ' ' + person.lastName : person.lastName}`;
+    return `${person.middleName
+        ? person.firstName + ' ' + person.middleName + ' ' + person.lastName
+        : person.firstName + ' ' + person.lastName}`;
 }
 const newPerson1 = {
     firstName: 'Name',
