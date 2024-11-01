@@ -1,0 +1,11 @@
+{
+  "name": "type-script-course",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile:watch": "tsc --watch"
+  },
+  "author": "",
+  "license": "ISC"
+}
