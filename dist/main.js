@@ -49,4 +49,4 @@ const getAverageGrade = (universityRecord, subject) => {
     }
     return parseFloat(averages[subject].toFixed(2));
 };
-console.log(getAverageGrade(record1, 'Math'));
+getAverageGrade(record1, 'Math');

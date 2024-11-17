@@ -2,7 +2,6 @@ interface Student {
     id: string,
     name: string,
     age: number
-
 }
 
 type Subject = 'Math' | 'Science' | 'Literature' | 'History'
